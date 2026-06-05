@@ -29,6 +29,7 @@ module gungho_setup_io_mod
                                        land_area_ancil_path,      &
                                        orography_mean_ancil_path, &
                                        orography_subgrid_ancil_path,&
+                                       orography_scale_aware_path,&
                                        aerosols_ancil_path,       &
                                        albedo_nir_ancil_path,     &
                                        albedo_vis_ancil_path,     &
@@ -279,6 +280,12 @@ module gungho_setup_io_mod
                                  trim(orography_subgrid_ancil_path)
         call files_list%insert_item( lfric_xios_file_type( ancil_fname,        &
                                                          xios_id="orography_subgrid_ancil", &
+                                                         io_mode=FILE_MODE_READ ) )
+        
+        write(ancil_fname,'(A)') trim(ancil_directory)//'/'// &
+                                 trim(orography_scale_aware_ancil_path)
+        call files_list%insert_item( lfric_xios_file_type( ancil_fname,        &
+                                                         xios_id="orography_scale_aware_ancil", &
                                                          io_mode=FILE_MODE_READ ) )
 
         ! Set land area ancil filename from namelist

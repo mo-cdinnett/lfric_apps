@@ -378,6 +378,14 @@ contains
                                 mesh, twod_mesh, twod=.true., &
                                 ndata=n_horiz_ang)
       end if
+      call setup_ancil_field("orog_f1", depository, ancil_fields, mesh, &
+                             twod_mesh, twod=.true.)
+      call setup_ancil_field("orog_f2", depository, ancil_fields, mesh, &
+                             twod_mesh, twod=.true.)
+      call setup_ancil_field("orog_f3", depository, ancil_fields, mesh, &
+                             twod_mesh, twod=.true.)
+      call setup_ancil_field("orog_amp", depository, ancil_fields, mesh, &
+                             twod_mesh, twod=.true.)
     end if
 
     !=====  OZONE ANCIL  =====
