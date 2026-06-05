@@ -263,7 +263,8 @@ module um_physics_init_mod
   use orographic_drag_config_mod, only:  include_moisture,          &
                                          include_moisture_lowmoist, &
                                          include_moisture_moist,    &
-                                         include_moisture_dry
+                                         include_moisture_dry,      &
+                                         scale_aware => scale_aware_in
 
 
   ! Other LFRic modules used
@@ -1488,7 +1489,7 @@ contains
     end if
 
     if ( orographic_drag == orographic_drag_um ) then
-      scale_aware = .false.
+      scale_aware = scale_aware_in
       middle = 0.42_r_um
       var = 0.18_r_um
       select case (include_moisture)
