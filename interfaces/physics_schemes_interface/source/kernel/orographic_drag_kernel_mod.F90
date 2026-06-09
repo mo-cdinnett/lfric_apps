@@ -102,10 +102,10 @@ contains
   !! @param[in]     grad_xx_orog   (dh/dx)**2
   !! @param[in]     grad_xy_orog   (dh/dx)*(dh/dy)
   !! @param[in]     grad_yy_orog   (dh/dy)**2
-  !! @param[in]     orog_f1        F1 gradient component of subgrid orography
-  !! @param[in]     orog_f2        F3 gradient component of subgrid orography
-  !! @param[in]     orog_f3        F2 gradient component of subgrid orography
-  !! @param[in]     orog_amp       Amplitude of subgrid orography
+  !! @param[in]     f1_orog        F1 gradient component of subgrid orography
+  !! @param[in]     f2_orog        F3 gradient component of subgrid orography
+  !! @param[in]     f3_orog        F2 gradient component of subgrid orography
+  !! @param[in]     amp_orog       Amplitude of subgrid orography
   !! @param[in]     mr_v           Water vapour mixing ratio
   !! @param[in]     mr_cl          Cloud liquid mixing ratio
   !! @param[in]     mr_cf          Cloud frozen mixing ratio
@@ -173,10 +173,10 @@ contains
                                                      grad_xx_orog, &
                                                      grad_xy_orog, &
                                                      grad_yy_orog, &
-                                                     orog_f1,      &
-                                                     orog_f2,      &
-                                                     orog_f3,      &
-                                                     orog_amp
+                                                     f1_orog,      &
+                                                     f2_orog,      &
+                                                     f3_orog,      &
+                                                     amp_orog
 
     real(r_def), intent(in), dimension(undf_w3)   :: height_w3
     real(r_def), intent(in), dimension(undf_wth)  :: height_wth
@@ -345,7 +345,7 @@ contains
       grad_yy(i) = real(grad_yy_orog(map_2d(1,cell_index(i))), r_um)
 
       ! Scale aware inputs (not currently used in LFRic)
-      if scale_aware then
+      if (scale_aware) then
         orog_f1(i)  = real(f1_orog(map_2d(1,cell_index(i))), r_um)
         orog_f2(i)  = real(f2_orog(map_2d(1,cell_index(i))), r_um)
         orog_f3(i)  = real(f3_orog(map_2d(1,cell_index(i))), r_um)
