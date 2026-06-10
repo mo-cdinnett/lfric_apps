@@ -264,7 +264,7 @@ module um_physics_init_mod
                                          include_moisture_lowmoist, &
                                          include_moisture_moist,    &
                                          include_moisture_dry,      &
-                                         scale_aware => scale_aware_in
+                                         scale_aware_in => scale_aware
 
 
   ! Other LFRic modules used
