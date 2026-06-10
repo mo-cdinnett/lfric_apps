@@ -29,7 +29,7 @@ module gungho_setup_io_mod
                                        land_area_ancil_path,      &
                                        orography_mean_ancil_path, &
                                        orography_subgrid_ancil_path,&
-                                       orography_scale_aware_path,&
+                                       orography_scale_aware_ancil_path,&
                                        aerosols_ancil_path,       &
                                        albedo_nir_ancil_path,     &
                                        albedo_vis_ancil_path,     &
