@@ -36,6 +36,7 @@ contains
                       dtemp_orog_blk, dtemp_orog_gwd, u_in_w3, v_in_w3,&
                       wetrho_in_w3, theta_in_wth, exner_in_w3, sd_orog,  &
                       grad_xx_orog, grad_xy_orog, grad_yy_orog,          &
+                      orog_f1, orog_f2, orog_f3, orog_amp,               &
                       mr_v, mr_cl, mr_ci,                                &
                       height_w3, height_wth,                             &
                       taux_orog_blk, tauy_orog_blk,                      &
@@ -57,6 +58,8 @@ contains
                                     exner_in_w3,                & ! Exner pressure
                                     sd_orog, grad_xx_orog,      & ! Orography ancils
                                     grad_xy_orog, grad_yy_orog, & !
+                                    orog_f1, orog_f2,           & !
+                                    orog_f3, orog_amp,          & !
                                     mr_v, mr_cl, mr_ci,         & ! mixing ratios
                                     height_w3, height_wth         ! Heights
     ! Diagnostics from orographic drag
@@ -114,6 +117,10 @@ contains
     grad_xx_orog_proxy = grad_xx_orog%get_proxy()
     grad_xy_orog_proxy = grad_xy_orog%get_proxy()
     grad_yy_orog_proxy = grad_yy_orog%get_proxy()
+    orog_f1_proxy = orog_f1%get_proxy()
+    orog_f2_proxy = orog_f2%get_proxy()
+    orog_f3_proxy = orog_f3%get_proxy()
+    orog_amp_proxy = orog_amp%get_proxy()
     mr_v_proxy = mr_v%get_proxy()
     mr_cl_proxy = mr_cl%get_proxy()
     mr_ci_proxy = mr_ci%get_proxy()
@@ -194,6 +201,8 @@ contains
                         exner_in_w3_proxy%data,                                          &
                         sd_orog_proxy%data, grad_xx_orog_proxy%data,                     &
                         grad_xy_orog_proxy%data, grad_yy_orog_proxy%data,                &
+                        orog_f1_proxy%data, orog_f2_proxy%data,                          &
+                        orog_f3_proxy%data, orog_amp_proxy%data,                         &
                         mr_v_proxy%data, mr_cl_proxy%data, mr_ci_proxy%data,             &
                         height_w3_proxy%data, height_wth_proxy%data,                     &
                         taux_blk_proxy%data, tauy_blk_proxy%data,                        &
