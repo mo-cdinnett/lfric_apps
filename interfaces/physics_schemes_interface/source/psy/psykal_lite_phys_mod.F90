@@ -90,6 +90,8 @@ contains
                               exner_in_w3_proxy,                      &
                               sd_orog_proxy, grad_xx_orog_proxy,      &
                               grad_xy_orog_proxy, grad_yy_orog_proxy, &
+                              orog_f1_proxy, orog_f2_proxy,           &
+                              orog_f3_proxy, orog_amp_proxy,          &
                               mr_v_proxy, mr_cl_proxy, mr_ci_proxy,   &
                               height_w3_proxy, height_wth_proxy,      &
                               taux_blk_proxy, tauy_blk_proxy,         &
