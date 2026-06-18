@@ -116,6 +116,10 @@ contains
     call orography_fields%get_field('grad_xx_orog', grad_xx_orog)
     call orography_fields%get_field('grad_xy_orog', grad_xy_orog)
     call orography_fields%get_field('grad_yy_orog', grad_yy_orog)
+    call orography_fields%get_field('orog_f1', orog_f1)
+    call orography_fields%get_field('orog_f2', orog_f2)
+    call orography_fields%get_field('orog_f3', orog_f3)
+    call orography_fields%get_field('orog_amp', orog_amp)
 
     ! Local increments
     call u_in_w3%copy_field_properties(du_orographic_drag)
@@ -162,6 +166,7 @@ contains
                 u_in_w3, v_in_w3,                             &
                 wetrho_in_w3, theta, exner_in_wth, sd_orog,   &
                 grad_xx_orog, grad_xy_orog, grad_yy_orog,     &
+                orog_f1, orog_f2, orog_f3, orog_amp,          &
                 mr_n(imr_v), mr_n(imr_cl), mr_ice,            &
                 height_w3, height_wth,                        &
                 taux_orog_blk, tauy_orog_blk,                 &
