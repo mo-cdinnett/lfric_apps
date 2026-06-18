@@ -83,6 +83,11 @@ contains
     type( field_type ), pointer :: grad_xy_orog => null()
     type( field_type ), pointer :: grad_yy_orog => null()
 
+    type( field_type ), pointer :: orog_f1 => null()
+    type( field_type ), pointer :: orog_f2 => null()
+    type( field_type ), pointer :: orog_f3 => null()
+    type( field_type ), pointer :: orog_amp => null()
+
     type( field_type ), pointer :: height_w3 => null()
     type( field_type ), pointer :: height_wth => null()
 
