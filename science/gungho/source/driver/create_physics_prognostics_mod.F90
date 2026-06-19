@@ -588,6 +588,14 @@ contains
          ckp=checkpoint_flag))
     call processor%apply(make_spec('silhouette_area_orog', main%orography,      &
          ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_f1', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_f2', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_f3', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_amp', main%orography,                   &
+         ckp=checkpoint_flag))
 
     !========================================================================
     ! Fields owned by the turbulence scheme
