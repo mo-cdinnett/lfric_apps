@@ -13,9 +13,9 @@
   </file>
   
   <file id="orography_scale_aware_ancil" name="orography_scale_aware_ancil" mode="read" output_freq="1ts" convention="UGRID" cyclic="false" enabled=".FALSE.">
-    <field id="orog_f1" name="m01s00i061" long_name="f1_coeffiecient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
-    <field id="orog_f2" name="m01s00i062" long_name="f2_coeffiecient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
-    <field id="orog_f3" name="m01s00i063" long_name="f3_coeffiecient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
+    <field id="orog_f1" name="m01s00i061" long_name="f1_coefficient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
+    <field id="orog_f2" name="m01s00i062" long_name="f2_coefficient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
+    <field id="orog_f3" name="m01s00i063" long_name="f3_coefficient_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
     <field id="orog_amp" name="m01s00i064" long_name="amplitude_for_sub-grid_orography" unit="1" operation="once" domain_ref="face"/>
   </file>
 
