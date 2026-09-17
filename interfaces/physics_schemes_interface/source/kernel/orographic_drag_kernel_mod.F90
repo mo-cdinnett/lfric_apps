@@ -27,7 +27,9 @@ module orographic_drag_kernel_mod
                                         orographic_gwd_heating,      &
                                         orographic_blocking_heating, &
                                         vertical_smoothing,          &
-                                        scale_aware
+                                        scale_aware,                 &
+                                        scale_aware_flow_blocking_midpoint,&
+                                        scale_aware_flow_blocking_variance
 
   implicit none
 
@@ -366,6 +368,8 @@ contains
     l_fb_heating = orographic_blocking_heating
     l_gw_heating = orographic_gwd_heating
     l_smooth     = vertical_smoothing
+    middle       = scale_aware_flow_blocking_midpoint
+    var          = sclae_aware_flow_blocking_variance
 
     ! Set stash flags and arrays
     if (.not. associated(taux_orog_blk, empty_real_data) ) then
