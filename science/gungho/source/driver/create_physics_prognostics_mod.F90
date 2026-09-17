@@ -125,6 +125,7 @@ module create_physics_prognostics_mod
   use formulation_config_mod,         only : moisture_formulation,    &
                                              moisture_formulation_dry
   use stochastic_physics_config_mod,  only : blpert_type, blpert_type_off
+  use orographic_drag_config_mod,     only : scale_aware
 
 #ifdef UM_PHYSICS
   use multidata_field_dimensions_mod, only :                                    &
@@ -619,6 +620,19 @@ contains
     call processor%apply(make_spec('peak_to_trough_orog', main%orography,       &
          ckp=checkpoint_flag))
     call processor%apply(make_spec('silhouette_area_orog', main%orography,      &
+         ckp=checkpoint_flag))
+    if (checkpoint_flag .and. scale_aware) then
+      checkpoint_flag = .true.
+    else
+      checkpoint_flag = .false.
+    end if
+    call processor%apply(make_spec('orog_f1', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_f2', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_f3', main%orography,                   &
+         ckp=checkpoint_flag))
+    call processor%apply(make_spec('orog_amp', main%orography,                   &
          ckp=checkpoint_flag))
 
     !========================================================================

@@ -287,10 +287,14 @@ module um_physics_init_mod
                                            rp_mp_snow_fspd,                    &
                                            rp_ran_max
 
-  use orographic_drag_config_mod, only:  include_moisture,          &
-                                         include_moisture_lowmoist, &
-                                         include_moisture_moist,    &
-                                         include_moisture_dry
+  use orographic_drag_config_mod, only:  include_moisture,                     &
+                                         include_moisture_lowmoist,            &
+                                         include_moisture_moist,               &
+                                         include_moisture_dry,                 &
+                                         scale_aware_in => scale_aware,        &
+                                         scale_aware_flow_blocking_midpoint,   &
+                                         scale_aware_flow_blocking_variance
+
 
 
   ! Other LFRic modules used
@@ -1558,9 +1562,9 @@ contains
     end if
 
     if ( orographic_drag == orographic_drag_um ) then
-      scale_aware = .false.
-      middle = 0.42_r_um
-      var = 0.18_r_um
+      scale_aware = scale_aware_in
+      middle = real(scale_aware_flow_blocking_midpoint, r_um)
+      var = real(scale_aware_flow_blocking_variance, r_um)
       select case (include_moisture)
         case(include_moisture_dry)
           i_moist = 0

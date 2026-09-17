@@ -89,6 +89,8 @@ module init_ancils_mod
     tio_rad_opt, tio_rad_opt_ancil, &
     vo_rad_opt, vo_rad_opt_ancil
 
+use orographic_drag_config_mod,       only : scale_aware
+
   implicit none
 
   public   :: create_fd_ancils,           &
@@ -374,6 +376,16 @@ contains
                                 mesh, twod_mesh, twod=.true.)
         call setup_ancil_field("grad_y_orog", depository, ancil_fields, &
                                 mesh, twod_mesh, twod=.true.)
+      end if
+      if (scale_aware) then
+        call setup_ancil_field("orog_f1", depository, ancil_fields, mesh, &
+                               twod_mesh, twod=.true.)
+        call setup_ancil_field("orog_f2", depository, ancil_fields, mesh, &
+                               twod_mesh, twod=.true.)
+        call setup_ancil_field("orog_f3", depository, ancil_fields, mesh, &
+                               twod_mesh, twod=.true.)
+        call setup_ancil_field("orog_amp", depository, ancil_fields, mesh, &
+                               twod_mesh, twod=.true.)
       end if
       if (topography == topography_horizon) then
         call setup_ancil_field("horizon_angle", depository, ancil_fields, &

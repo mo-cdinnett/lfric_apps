@@ -26,7 +26,8 @@ module orographic_drag_kernel_mod
                                         mountain_height_scaling,     &
                                         orographic_gwd_heating,      &
                                         orographic_blocking_heating, &
-                                        vertical_smoothing
+                                        vertical_smoothing,          &
+                                        scale_aware
 
   implicit none
 
@@ -39,7 +40,7 @@ module orographic_drag_kernel_mod
   !>
   type, public, extends(kernel_type) :: orographic_drag_kernel_type
     private
-    type(arg_type) :: meta_args(24) = (/                                   &
+    type(arg_type) :: meta_args(28) = (/                                   &
          arg_type(GH_FIELD, GH_REAL, GH_WRITE, W3),                        & ! du_orog_blk, u wind increment blocking
          arg_type(GH_FIELD, GH_REAL, GH_WRITE, W3),                        & ! dv_orog_blk, v wind increment blocking
          arg_type(GH_FIELD, GH_REAL, GH_WRITE, W3),                        & ! du_orog_gwd, u wind increment gwd
@@ -55,6 +56,10 @@ module orographic_drag_kernel_mod
          arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! grad_xx_orog
          arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! grad_xy_orog
          arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! grad_yy_orog
+         arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! orog_f1
+         arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! orog_f2
+         arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! orog_f3
+         arg_type(GH_FIELD, GH_REAL, GH_READ,  ANY_DISCONTINUOUS_SPACE_1), & ! orog_amp
          arg_type(GH_FIELD, GH_REAL, GH_READ,  Wtheta),                    & ! mr_v
          arg_type(GH_FIELD, GH_REAL, GH_READ,  Wtheta),                    & ! mr_cl
          arg_type(GH_FIELD, GH_REAL, GH_READ,  Wtheta),                    & ! mr_cf
@@ -97,6 +102,10 @@ contains
   !! @param[in]     grad_xx_orog   (dh/dx)**2
   !! @param[in]     grad_xy_orog   (dh/dx)*(dh/dy)
   !! @param[in]     grad_yy_orog   (dh/dy)**2
+  !! @param[in]     f1_orog        F1 gradient component of subgrid orography
+  !! @param[in]     f2_orog        F3 gradient component of subgrid orography
+  !! @param[in]     f3_orog        F2 gradient component of subgrid orography
+  !! @param[in]     amp_orog       Amplitude of subgrid orography
   !! @param[in]     mr_v           Water vapour mixing ratio
   !! @param[in]     mr_cl          Cloud liquid mixing ratio
   !! @param[in]     mr_cf          Cloud frozen mixing ratio
@@ -122,6 +131,7 @@ contains
                         dtemp_orog_blk, dtemp_orog_gwd, u_in_w3, v_in_w3,  &
                         wetrho_in_w3, theta_in_wth, exner_in_wth, sd_orog, &
                         grad_xx_orog, grad_xy_orog, grad_yy_orog,          &
+                        f1_orog, f2_orog, f3_orog, amp_orog                &
                         mr_v, mr_cl, mr_cf,                                &
                         height_w3, height_wth,                             &
                         ! Diagnostics
@@ -162,7 +172,11 @@ contains
     real(r_def), intent(in), dimension(undf_2d)   :: sd_orog,      &
                                                      grad_xx_orog, &
                                                      grad_xy_orog, &
-                                                     grad_yy_orog
+                                                     grad_yy_orog, &
+                                                     f1_orog,      &
+                                                     f2_orog,      &
+                                                     f3_orog,      &
+                                                     amp_orog
 
     real(r_def), intent(in), dimension(undf_w3)   :: height_w3
     real(r_def), intent(in), dimension(undf_wth)  :: height_wth
@@ -331,10 +345,16 @@ contains
       grad_yy(i) = real(grad_yy_orog(map_2d(1,cell_index(i))), r_um)
 
       ! Scale aware inputs (not currently used in LFRic)
-      orog_f1(i)  = 0.0_r_um
-      orog_f2(i)  = 0.0_r_um
-      orog_f3(i)  = 0.0_r_um
-      orog_amp(i) = 0.0_r_um
+      if (scale_aware) then
+        orog_f1(i)  = real(f1_orog(map_2d(1,cell_index(i))), r_um)
+        orog_f2(i)  = real(f2_orog(map_2d(1,cell_index(i))), r_um)
+        orog_f3(i)  = real(f3_orog(map_2d(1,cell_index(i))), r_um)
+        orog_amp(i) = real(amp_orog(map_2d(1,cell_index(i))), r_um)
+      else
+        orog_f1(i)  = 0.0_r_um
+        orog_f2(i)  = 0.0_r_um
+        orog_f3(i)  = 0.0_r_um
+        orog_amp(i) = 0.0_r_um
     end do !i
     
     ! Recasting of LFRic to UM namelist inputs
