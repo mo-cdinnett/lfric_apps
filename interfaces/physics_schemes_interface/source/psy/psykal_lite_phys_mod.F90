@@ -59,7 +59,7 @@ contains
                                     sd_orog, grad_xx_orog,      & ! Orography ancils
                                     grad_xy_orog, grad_yy_orog, & !
                                     orog_f1, orog_f2,           & !
-                                    orog_f3, orog_amp           & !
+                                    orog_f3, orog_amp,          & !
                                     mr_v, mr_cl, mr_ci,         & ! mixing ratios
                                     height_w3, height_wth         ! Heights
     ! Diagnostics from orographic drag
