@@ -252,8 +252,8 @@ contains
     real(r_um), dimension(seg_len) :: zb
 
     ! local namelist inputs
-    real(r_um) :: fbcd, gsharp, gwd_frc, gwd_fsat, nsigma
-    logical :: l_fb_heating, l_gw_heating, l_smooth
+    real(r_um) :: fbcd, gsharp, gwd_frc, gwd_fsat, nsigma, middle, var
+    logical :: l_fb_heating, l_gw_heating, l_smooth, scale_aware
 
     integer(i_um) :: k, i
 
@@ -369,8 +369,8 @@ contains
     l_fb_heating = orographic_blocking_heating
     l_gw_heating = orographic_gwd_heating
     l_smooth     = vertical_smoothing
-    middle       = scale_aware_flow_blocking_midpoint
-    var          = sclae_aware_flow_blocking_variance
+    middle       = real(scale_aware_flow_blocking_midpoint, r_um)
+    var          = real(scale_aware_flow_blocking_variance, r_um)
 
     ! Set stash flags and arrays
     if (.not. associated(taux_orog_blk, empty_real_data) ) then
