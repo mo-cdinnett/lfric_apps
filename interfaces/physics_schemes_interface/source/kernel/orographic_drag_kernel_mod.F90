@@ -357,6 +357,7 @@ contains
         orog_f2(i)  = 0.0_r_um
         orog_f3(i)  = 0.0_r_um
         orog_amp(i) = 0.0_r_um
+      end if
     end do !i
     
     ! Recasting of LFRic to UM namelist inputs
