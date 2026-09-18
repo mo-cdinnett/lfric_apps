@@ -27,7 +27,7 @@ module orographic_drag_kernel_mod
                                         orographic_gwd_heating,      &
                                         orographic_blocking_heating, &
                                         vertical_smoothing,          &
-                                        scale_aware,                 &
+                                        scale_aware_in => scale_aware,                 &
                                         scale_aware_flow_blocking_midpoint,&
                                         scale_aware_flow_blocking_variance
 
@@ -347,7 +347,7 @@ contains
       grad_yy(i) = real(grad_yy_orog(map_2d(1,cell_index(i))), r_um)
 
       ! Scale aware inputs (not currently used in LFRic)
-      if (scale_aware) then
+      if (scale_aware_in) then
         orog_f1(i)  = real(f1_orog(map_2d(1,cell_index(i))), r_um)
         orog_f2(i)  = real(f2_orog(map_2d(1,cell_index(i))), r_um)
         orog_f3(i)  = real(f3_orog(map_2d(1,cell_index(i))), r_um)
@@ -369,6 +369,7 @@ contains
     l_fb_heating = orographic_blocking_heating
     l_gw_heating = orographic_gwd_heating
     l_smooth     = vertical_smoothing
+    scale_aware  = scale_aware_in
     middle       = real(scale_aware_flow_blocking_midpoint, r_um)
     var          = real(scale_aware_flow_blocking_variance, r_um)
 
